@@ -10,8 +10,8 @@
  *     
  */
 
-#include<HardwareTimer.h>
-#include<Wire.h>
+#include <HardwareTimer.h>
+#include <Wire.h>
 
 //ピンの設定
 #define DIR_R_PIN D10
@@ -36,7 +36,7 @@
 #define ENC_A_L_PIN D1
 #define ENC_B_L_PIN D9
 
-#define CW_R  LOW
+#define CW_R LOW
 #define CCW_R HIGH
 #define CW_L HIGH
 #define CCW_L LOW
@@ -62,7 +62,6 @@ int time_tmp = 0;
 int time_cnt = 0;
 int sub_time;
 
-
 //0:マーカー検出、クロス検出がされていない
 //1:Startマーカーを検出
 //2:Startマーカーを通過中
@@ -82,7 +81,8 @@ float theta = 0;
 
 extern float zGyro;
 
-void encoderA_R() {
+void encoderA_R()
+{
   if (digitalRead(ENC_A_R_PIN) == HIGH) {
     if (digitalRead(ENC_B_R_PIN) == LOW) {
       encoder_r_cnt++;
@@ -98,7 +98,8 @@ void encoderA_R() {
   }
 }
 
-void encoderB_R() {
+void encoderB_R()
+{
   if (digitalRead(ENC_B_R_PIN) == HIGH) {
     if (digitalRead(ENC_A_R_PIN) == HIGH) {
       encoder_r_cnt++;
@@ -114,7 +115,8 @@ void encoderB_R() {
   }
 }
 
-void encoderA_L() {
+void encoderA_L()
+{
   if (digitalRead(ENC_A_L_PIN) == HIGH) {
     if (digitalRead(ENC_B_L_PIN) == LOW) {
       encoder_l_cnt++;
@@ -130,7 +132,8 @@ void encoderA_L() {
   }
 }
 
-void encoderB_L() {
+void encoderB_L()
+{
   if (digitalRead(ENC_B_L_PIN) == HIGH) {
     if (digitalRead(ENC_A_L_PIN) == HIGH) {
       encoder_l_cnt++;
@@ -146,17 +149,14 @@ void encoderB_L() {
   }
 }
 
-void timerCnt(void) {
-  time_cnt++;
+void timerCnt(void) { time_cnt++; }
 
-}
-
-
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
   //IOポート設定
-  pinMode(D12,OUTPUT);
-  digitalWrite(D12,0);
+  pinMode(D12, OUTPUT);
+  digitalWrite(D12, 0);
 
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(LED_PIN, OUTPUT);
@@ -179,8 +179,8 @@ void setup() {
   BMX055_Init();
   delay(300);
 
-  TIM_TypeDef *Instance = TIM2;
-  HardwareTimer *Timer2 = new HardwareTimer(Instance);
+  TIM_TypeDef * Instance = TIM2;
+  HardwareTimer * Timer2 = new HardwareTimer(Instance);
   Timer2->setMode(1, TIMER_OUTPUT_COMPARE);
   Timer2->setOverflow(100, MICROSEC_FORMAT);
   Timer2->attachInterrupt(timerCnt);
@@ -190,17 +190,21 @@ void setup() {
   Serial.begin(115200);
 
   while (1) {
-   if (digitalRead(SW2_PIN) == LOW) {
+    if (digitalRead(SW2_PIN) == LOW) {
       buzzerDrive(1, 100, 100);
-       time_tmp = time_cnt;      
+      time_tmp = time_cnt;
       while (1) {
         adGet();
         BMX055_Gyro();
-        sub_time=time_cnt - time_tmp;
-        theta = theta + zGyro * (sub_time+1000)/10000;
+        sub_time = time_cnt - time_tmp;
+        theta = theta + zGyro * (sub_time + 1000) / 10000;
 
-        Serial.print(sub_time);Serial.print(" ");Serial.print(theta);Serial.print(" ");Serial.println(zGyro);
-/*        
+        Serial.print(sub_time);
+        Serial.print(" ");
+        Serial.print(theta);
+        Serial.print(" ");
+        Serial.println(zGyro);
+        /*        
         Serial.printf("\n\r VDD=%dmV LL2=%d LL1=%d LR1=%d LR2=%d inside_offset=%d outside_offset=%d ML=%d MR=%d xline=%d  marker_check=%d CTRL=%d ENC_R=%d ENC_L=%d theta=%d zGyro=%d time_cnt=%d",
                       analogRead(POWER_PIN) * 9677 / 1000,
                       l2_value, l1_value, r1_value, r2_value,
@@ -215,9 +219,9 @@ void setup() {
                       (int)(zGyro*10),
                       time_cnt
                      );
-*/                     
+*/
         delay(100);
-        time_tmp = time_cnt;        
+        time_tmp = time_cnt;
         if (digitalRead(SW2_PIN) == LOW) {
           delay(200);
           break;
@@ -232,17 +236,16 @@ void setup() {
       buzzerDrive(2, 70, 70);
       break;
     }
-   
-  } 
+  }
 }
 
-
-void loop() {
+void loop()
+{
   // put your main code here, to run repeatedly:
 
   adGet();
   //マーカーを検出?
-  if (line_signed == 1 ) {
+  if (line_signed == 1) {
     markerCheck();
     if (line_state == 1) {
       buzzerDrive(1, 50, 50);
@@ -262,34 +265,33 @@ void loop() {
   pwm_r_value = 80 + line_signed * line_control / 10;
   //左モータPWM出力
   if (pwm_l_value < 0) {
-    digitalWrite(DIR_L_PIN, CCW_L);//モータ後進設定
+    digitalWrite(DIR_L_PIN, CCW_L);  //モータ後進設定
   } else {
-    digitalWrite(DIR_L_PIN, CW_L);//モータ前進設定
+    digitalWrite(DIR_L_PIN, CW_L);  //モータ前進設定
   }
   pwm_l_value = abs(pwm_l_value);
   if (pwm_l_value > 255) {
-    pwm_l_value = 255; //モータ制御値上限ガード処理
+    pwm_l_value = 255;  //モータ制御値上限ガード処理
   }
   if (pwm_l_value <= 0) {
-    pwm_l_value = 0; //モータ制御値下限ガード処理
+    pwm_l_value = 0;  //モータ制御値下限ガード処理
   }
   analogWrite(PWM_L_PIN, pwm_l_value);
 
   //右モータPWM出力
   if (pwm_r_value < 0) {
-    digitalWrite(DIR_R_PIN, CCW_R);//モータ後進設定
+    digitalWrite(DIR_R_PIN, CCW_R);  //モータ後進設定
   } else {
-    digitalWrite(DIR_R_PIN, CW_R);//モータ前進設定
+    digitalWrite(DIR_R_PIN, CW_R);  //モータ前進設定
   }
   pwm_r_value = abs(pwm_r_value);
   if (pwm_r_value > 255) {
-    pwm_r_value = 255; //モータ制御値上限ガード処理
+    pwm_r_value = 255;  //モータ制御値上限ガード処理
   }
   if (pwm_r_value <= 0) {
-    pwm_r_value = 0; //モータ制御値下限ガード処理
+    pwm_r_value = 0;  //モータ制御値下限ガード処理
   }
   analogWrite(PWM_R_PIN, pwm_r_value);
 
   delay(1);
-  
 }

@@ -11,17 +11,19 @@
 
 #define LED_PIN D13
 
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
-  pinMode(LED_PIN,OUTPUT);
-  pinMode(D12,OUTPUT);
-  digitalWrite(D12,LOW);
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(D12, OUTPUT);
+  digitalWrite(D12, LOW);
 }
 
-void loop() {
+void loop()
+{
   // put your main code here, to run repeatedly:
-  digitalWrite(LED_PIN,HIGH); //LEDを点灯
-  delay(1000);                //1秒待つ
-  digitalWrite(LED_PIN,LOW);  //LED消灯
-  delay(1000);                //1秒待つ
+  digitalWrite(LED_PIN, HIGH);  //LEDを点灯
+  delay(1000);                  //1秒待つ
+  digitalWrite(LED_PIN, LOW);   //LED消灯
+  delay(1000);                  //1秒待つ
 }

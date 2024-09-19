@@ -9,7 +9,8 @@
  *     
  */
 
-void ledDrive(char times, int high_ms, int low_ms) {
+void ledDrive(char times, int high_ms, int low_ms)
+{
   for (char i = 0; i < times; i++) {
     digitalWrite(LED_PIN, HIGH);
     delay(high_ms);
@@ -18,26 +19,28 @@ void ledDrive(char times, int high_ms, int low_ms) {
   }
 }
 
-void buzzerDrive(char times, int high_ms, int low_ms) {
+void buzzerDrive(char times, int high_ms, int low_ms)
+{
   for (char i = 0; i < times; i++) {
-    digitalWrite(BUZZER_PIN, HIGH);   // ブザー鳴らす
-    delay(100);                       // 指定時間待ち
-    digitalWrite(BUZZER_PIN, LOW);    // ブザー止める
-    delay(100);                       // 指定時間待ち
+    digitalWrite(BUZZER_PIN, HIGH);  // ブザー鳴らす
+    delay(100);                      // 指定時間待ち
+    digitalWrite(BUZZER_PIN, LOW);   // ブザー止める
+    delay(100);                      // 指定時間待ち
   }
 }
 
-void runStop(void) {
+void runStop(void)
+{
   digitalWrite(LED_PIN, LOW);
   analogWrite(PWM_L_PIN, 0);
   analogWrite(PWM_R_PIN, 0);
   digitalWrite(BUZZER_PIN, HIGH);
   delay(100);
   digitalWrite(BUZZER_PIN, LOW);
-  line_state=0;
+  line_state = 0;
   while (1) {
     if (digitalRead(SW1_PIN) == LOW) {
-//      digitalWrite(LED_PIN, HIGH);
+      //      digitalWrite(LED_PIN, HIGH);
       break;
     }
   }

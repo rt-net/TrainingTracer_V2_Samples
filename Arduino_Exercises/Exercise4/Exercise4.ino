@@ -14,27 +14,29 @@
 #define SW1_PIN D7
 #define SW2_PIN D8
 
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
-  pinMode(LED_PIN,OUTPUT);
-  pinMode(BUZZER_PIN,OUTPUT);
-  pinMode(SW1_PIN,INPUT_PULLUP);
-  pinMode(SW2_PIN,INPUT_PULLUP);
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(SW1_PIN, INPUT_PULLUP);
+  pinMode(SW2_PIN, INPUT_PULLUP);
 
-  pinMode(D12,OUTPUT);
-  digitalWrite(D12,LOW);  
+  pinMode(D12, OUTPUT);
+  digitalWrite(D12, LOW);
 }
 
-void loop() {
+void loop()
+{
   // put your main code here, to run repeatedly:
-  if((digitalRead(SW1_PIN)==LOW)&&(digitalRead(SW2_PIN)==LOW)){
-    digitalWrite(LED_PIN,HIGH);
-  }else{
-    digitalWrite(LED_PIN,LOW);    
+  if ((digitalRead(SW1_PIN) == LOW) && (digitalRead(SW2_PIN) == LOW)) {
+    digitalWrite(LED_PIN, HIGH);
+  } else {
+    digitalWrite(LED_PIN, LOW);
   }
-  if(digitalRead(SW2_PIN)==LOW){
-    digitalWrite(BUZZER_PIN,HIGH);
-  }else{
-    digitalWrite(BUZZER_PIN,LOW);
+  if (digitalRead(SW2_PIN) == LOW) {
+    digitalWrite(BUZZER_PIN, HIGH);
+  } else {
+    digitalWrite(BUZZER_PIN, LOW);
   }
 }
