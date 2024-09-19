@@ -37,13 +37,17 @@ void loop()
   if (digitalRead(SW1_PIN) == LOW) {
     flag = 1;
     delay(30);
-    while (digitalRead(SW1_PIN) == LOW);
+    while (digitalRead(SW1_PIN) == LOW) {
+      // pass
+    }
     delay(30);
   }
   if (digitalRead(SW2_PIN) == LOW) {
     flag = 0;
     delay(30);
-    while (digitalRead(SW2_PIN) == LOW);
+    while (digitalRead(SW2_PIN) == LOW) {
+      // pass
+    }
     delay(30);
   }
   if (flag == 1) {
