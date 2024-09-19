@@ -29,7 +29,7 @@ jobs:
             - name: STMicroelectronics:stm32
               source-url: https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
           sketch-paths: |
-            - Arduino_Exercises/Exercises1
+            - Arduino_Exercises/Exercise1
 
       # This step is needed to pass the size data to the report job 
       - name: Upload sketches report to workflow artifact
