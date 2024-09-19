@@ -12,10 +12,10 @@ on:
 jobs:
   arduino-lint:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Arduino_Exercises
     steps:
+      - name: lint Arduino_Exercises
+      - working-directory: Arduino_Exercises
+      - run: pwd
       - uses: actions/checkout@v4
       - uses: arduino/arduino-lint-action@v1
         with:
@@ -24,10 +24,10 @@ jobs:
   clang-format:
     needs: arduino-lint
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Arduino_Exercises
     steps:
+      - name: clang-format Arduino_Exercises
+      - working-directory: Arduino_Exercises
+      - run: pwd
       - uses: actions/checkout@v4
       # 各スケッチファイルの.inoに対してclang-formatによる整形が必要か判定する
       # 正規表現を簡単にするためzshを使用する
