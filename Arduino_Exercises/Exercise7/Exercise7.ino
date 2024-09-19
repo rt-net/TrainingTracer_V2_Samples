@@ -37,9 +37,7 @@ void loop()
       count++;
     }
     delay(30);
-    while (digitalRead(SW1_PIN) == LOW) {
-      // pass
-    }
+    while (digitalRead(SW1_PIN) == LOW) continue;
     delay(30);
   } else {
     digitalWrite(LED_PIN, LOW);

@@ -112,9 +112,7 @@ void loop()
   //マーカーを検出?
   if (line_signed == 1) {
     if (adc_read_value(PB_0, 10) > 80) {
-      while (adc_read_value(PB_0, 10) > 60) {
-        // pass
-      }
+      while (adc_read_value(PB_0, 10) > 60) continue;
       counter++;
       if (counter > 1) {
         digitalWrite(LED_PIN, LOW);
@@ -134,9 +132,7 @@ void loop()
     }
   } else {
     if (adc_read_value(PB_0, 10) < 30) {
-      while (adc_read_value(PB_0, 10) < 45) {
-        // pass
-      }
+      while (adc_read_value(PB_0, 10) < 45) continue;
       counter++;
       if (counter > 1) {
         digitalWrite(LED_PIN, LOW);
