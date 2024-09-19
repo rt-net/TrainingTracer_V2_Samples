@@ -12,6 +12,7 @@ on:
 jobs:
   arduino-lint:
     runs-on: ubuntu-latest
+    working-directory: Arduino_Exercises
     steps:
       - uses: actions/checkout@v4
       - uses: arduino/arduino-lint-action@v1
