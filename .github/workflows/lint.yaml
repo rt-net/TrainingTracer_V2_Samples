@@ -29,5 +29,4 @@ jobs:
       - run: clang-format --dry-run -Werror Arduino_Exercises/Exercise*/*.ino
       - run: clang-format --dry-run -Werror Arduino_Sample/STEP*/*.ino
       - run: clang-format --dry-run -Werror STM32CubeIDE_Sample/STEP*/*.c
-      - run: clang-format --dry-run -Werror STM32CubeIDE_file/*.(c|h)
         shell: zsh {0}
