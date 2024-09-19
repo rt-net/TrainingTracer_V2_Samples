@@ -16,7 +16,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: arduino/arduino-lint-action@v1
         with:
-          path: ./Arduino_Exercises
+          path: |
+            ./Arduino_Exercises
+            ./Arduino_Sample
           recursive: true
           compliance: specification
   clang-format:
@@ -28,4 +30,5 @@ jobs:
       # 正規表現を簡単にするためzshを使用する
       - run: sudo apt install -y clang-format zsh
       - run: clang-format --dry-run -Werror Arduino_Exercises/Exercise*/*.ino
+      - run: clang-format --dry-run -Werror Arduino_Sample/STEP*/*.ino
         shell: zsh {0}
