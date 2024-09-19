@@ -149,7 +149,7 @@ int main(void)
       HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, 1);
       count++;
       HAL_Delay(30);
-      while (HAL_GPIO_ReadPin(SW1_GPIO_Port, SW1_Pin) == 0);
+      while (HAL_GPIO_ReadPin(SW1_GPIO_Port, SW1_Pin) == 0) continue;
       HAL_Delay(30);
     } else {
       HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, 0);
