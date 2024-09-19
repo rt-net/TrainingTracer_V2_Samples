@@ -30,6 +30,34 @@ jobs:
               source-url: https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
           sketch-paths: |
             - Arduino_Exercises/Exercise1
+            - Arduino_Exercises/Exercise2
+            - Arduino_Exercises/Exercise3
+            - Arduino_Exercises/Exercise4
+            - Arduino_Exercises/Exercise5
+            - Arduino_Exercises/Exercise6
+            - Arduino_Exercises/Exercise7
+            - Arduino_Exercises/Exercise8
+            - Arduino_Exercises/Exercise9
+            - Arduino_Exercises/Exercise10
+            - Arduino_Exercises/Exercise11
+            - Arduino_Exercises/Exercise12
+            - Arduino_Exercises/Exercise13
+            - Arduino_Exercises/Exercise14
+            - Arduino_Exercises/Exercise15
+            - Arduino_Exercises/Exercise16
+            - Arduino_Exercises/Exercise17
+            - Arduino_Exercises/Exercise18
+            - Arduino_Exercises/Exercise19
+            - Arduino_Sample/STEP1
+            - Arduino_Sample/STEP2
+            - Arduino_Sample/STEP3
+            - Arduino_Sample/STEP4
+            - Arduino_Sample/STEP5
+            - Arduino_Sample/STEP6
+            - Arduino_Sample/STEP7
+            - Arduino_Sample/STEP8
+            - Arduino_Sample/STEP9_1
+            - Arduino_Sample/STEP9_2
 
       # This step is needed to pass the size data to the report job 
       - name: Upload sketches report to workflow artifact
