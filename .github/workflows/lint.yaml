@@ -1,0 +1,60 @@
+name: Lint
+
+on:
+  push:
+    paths-ignore:
+    - '**.md'
+  pull_request:
+    paths-ignore:
+    - '**.md'
+  workflow_dispatch:
+
+jobs:
+  arduino-lint-exercises:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/arduino-lint-action@v1
+        with:
+          path: ./Arduino_Exercises
+          recursive: true
+          compliance: specification
+  clang-format-exercises:
+    needs: arduino-lint-exercises
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # 各スケッチファイルの.inoに対してclang-formatによる整形が必要か判定する
+      # 正規表現を簡単にするためzshを使用する
+      - run: sudo apt install -y clang-format zsh
+      - run: clang-format --dry-run -Werror Arduino_Exercises/Exercise*/*.ino
+        shell: zsh {0}
+  arduino-lint-sample:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/arduino-lint-action@v1
+        with:
+          path: ./Arduino_Sample
+          recursive: true
+          compliance: specification
+  clang-format-sample:
+    needs: arduino-lint-sample
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # 各スケッチファイルの.inoに対してclang-formatによる整形が必要か判定する
+      # 正規表現を簡単にするためzshを使用する
+      - run: sudo apt install -y clang-format zsh
+      - run: clang-format --dry-run -Werror Arduino_Sample/STEP*/*.ino
+        shell: zsh {0}
+  clang-format-stm32:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # 各ソースコードファイルに対してclang-formatによる整形が必要か判定する
+      # 正規表現を簡単にするためzshを使用する
+      - run: sudo apt install -y clang-format zsh
+      - run: clang-format --dry-run -Werror STM32CubeIDE_Sample/STEP*/*.c
+      - run: clang-format --dry-run -Werror STM32CubeIDE_file/*.(c|h)
+        shell: zsh {0}

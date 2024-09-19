@@ -19,37 +19,40 @@
 
 int flag = 0;
 
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
-  pinMode(D12,OUTPUT);
-  digitalWrite(D12,LOW);
-  
-  pinMode(LED_PIN,OUTPUT);  
-  pinMode(SW1_PIN,INPUT_PULLUP);
-  pinMode(SW2_PIN,INPUT_PULLUP);
+  pinMode(D12, OUTPUT);
+  digitalWrite(D12, LOW);
+
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(SW1_PIN, INPUT_PULLUP);
+  pinMode(SW2_PIN, INPUT_PULLUP);
   Serial.begin(115200);
 }
 
-void loop() {
+void loop()
+{
   // put your main code here, to run repeatedly:
-  if(digitalRead(SW1_PIN)==LOW){
+  if (digitalRead(SW1_PIN) == LOW) {
     flag = 1;
     delay(30);
-    while(digitalRead(SW1_PIN)==LOW);
+    while (digitalRead(SW1_PIN) == LOW) continue;
     delay(30);
   }
-  if(digitalRead(SW2_PIN)==LOW){
+  if (digitalRead(SW2_PIN) == LOW) {
     flag = 0;
     delay(30);
-    while(digitalRead(SW2_PIN)==LOW);
+    while (digitalRead(SW2_PIN) == LOW) continue;
     delay(30);
   }
-  if (flag == 1){
-    Serial.printf("\n\r LL2=%d LL1=%d LR1=%d LR2=%d",
-      analogRead(LINE_L2_PIN),analogRead(LINE_L1_PIN),analogRead(LINE_R1_PIN),analogRead(LINE_R2_PIN));
+  if (flag == 1) {
+    Serial.printf(
+      "\n\r LL2=%d LL1=%d LR1=%d LR2=%d", analogRead(LINE_L2_PIN), analogRead(LINE_L1_PIN),
+      analogRead(LINE_R1_PIN), analogRead(LINE_R2_PIN));
   }
-  digitalWrite(LED_PIN,HIGH);
+  digitalWrite(LED_PIN, HIGH);
   delay(100);
-  digitalWrite(LED_PIN,LOW);
+  digitalWrite(LED_PIN, LOW);
   delay(100);
- }
+}

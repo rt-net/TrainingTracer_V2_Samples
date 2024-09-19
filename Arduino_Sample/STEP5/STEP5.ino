@@ -15,20 +15,23 @@
 #define LINE_R2_PIN A2
 #define LED_PIN D13
 
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
-  pinMode(LED_PIN,OUTPUT);  
+  pinMode(LED_PIN, OUTPUT);
   Serial.begin(115200);
-  pinMode(D12,OUTPUT);
-  digitalWrite(D12,LOW); 
+  pinMode(D12, OUTPUT);
+  digitalWrite(D12, LOW);
 }
 
-void loop() {
+void loop()
+{
   // put your main code here, to run repeatedly:
-  Serial.printf("\n\r LL2=%d LL1=%d LR1=%d LR2=%d",
-    analogRead(LINE_L2_PIN),analogRead(LINE_L1_PIN),analogRead(LINE_R1_PIN),analogRead(LINE_R2_PIN));
-  digitalWrite(LED_PIN,HIGH);
+  Serial.printf(
+    "\n\r LL2=%d LL1=%d LR1=%d LR2=%d", analogRead(LINE_L2_PIN), analogRead(LINE_L1_PIN),
+    analogRead(LINE_R1_PIN), analogRead(LINE_R2_PIN));
+  digitalWrite(LED_PIN, HIGH);
   delay(100);
-  digitalWrite(LED_PIN,LOW);
+  digitalWrite(LED_PIN, LOW);
   delay(100);
- }
+}

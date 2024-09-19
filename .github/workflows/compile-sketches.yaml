@@ -1,0 +1,86 @@
+name: Compile Sketches
+
+on:
+  push:
+    paths-ignore:
+    - '**.md'
+  pull_request:
+    paths-ignore:
+    - '**.md'
+  workflow_dispatch:
+
+env:
+  # It's convenient to set variables for values used multiple times in the workflow
+  SKETCHES_REPORTS_PATH: sketches-reports
+  SKETCHES_REPORTS_ARTIFACT_NAME: sketches-reports
+
+jobs:
+  compile-sketches:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/compile-sketches@v1
+        with:
+          enable-deltas-report: true
+          sketches-report-path: ${{ env.SKETCHES_REPORTS_PATH }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          fqbn: STMicroelectronics:stm32:GenF3
+          platforms: |
+            - name: STMicroelectronics:stm32
+              source-url: https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
+          sketch-paths: |
+            - Arduino_Exercises/Exercise1
+            - Arduino_Exercises/Exercise2
+            - Arduino_Exercises/Exercise3
+            - Arduino_Exercises/Exercise4
+            - Arduino_Exercises/Exercise5
+            - Arduino_Exercises/Exercise6
+            - Arduino_Exercises/Exercise7
+            - Arduino_Exercises/Exercise8
+            - Arduino_Exercises/Exercise9
+            - Arduino_Exercises/Exercise10
+            - Arduino_Exercises/Exercise11
+            - Arduino_Exercises/Exercise12
+            - Arduino_Exercises/Exercise13
+            - Arduino_Exercises/Exercise14
+            - Arduino_Exercises/Exercise15
+            - Arduino_Exercises/Exercise16
+            - Arduino_Exercises/Exercise17
+            - Arduino_Exercises/Exercise18
+            - Arduino_Exercises/Exercise19
+            - Arduino_Sample/STEP1
+            - Arduino_Sample/STEP2
+            - Arduino_Sample/STEP3
+            - Arduino_Sample/STEP4
+            - Arduino_Sample/STEP5
+            - Arduino_Sample/STEP6
+            - Arduino_Sample/STEP7
+            - Arduino_Sample/STEP8
+            - Arduino_Sample/STEP9_1
+            # - Arduino_Sample/STEP9_2 # 外部プログラムが必要
+
+      # This step is needed to pass the size data to the report job 
+      - name: Upload sketches report to workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.SKETCHES_REPORTS_ARTIFACT_NAME }}
+          path: ${{ env.SKETCHES_REPORTS_PATH }}
+
+  report:
+    needs: compile-sketches  # Wait for the compile job to finish to get the data for the report
+    if: github.event_name == 'pull_request' # Only run the job when the workflow is triggered by a pull request
+    runs-on: ubuntu-latest
+    steps:
+      # This step is needed to get the size data produced by the compile jobs
+      - name: Download sketches reports artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.SKETCHES_REPORTS_ARTIFACT_NAME }}
+          path: ${{ env.SKETCHES_REPORTS_PATH }}
+        continue-on-error: true
+
+      - uses: arduino/report-size-deltas@v1
+        with:
+          sketches-reports-source: ${{ env.SKETCHES_REPORTS_PATH }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
