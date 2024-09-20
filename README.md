@@ -2,7 +2,7 @@
 [Training Tracer Ver.2](https://rt-net.jp/products/rt-tracer_V2)
 のサンプルプログラム集です。
 
-![tracer](https://rt-net.jp/wp-content/uploads/2020/05/RT-Tracer.png)
+![Training Tracer Ver.2](https://github.com/rt-net/images/blob/master/training-tracer/training_tracer_v2_500x500.png)
 
 ## フォルダ構成
 
