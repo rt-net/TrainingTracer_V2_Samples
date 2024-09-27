@@ -1,7 +1,7 @@
 /*
  *    Arduino_Sample/STEP9_1/STEP9_1.ino
  *    
- *    Copyright(C) 2020 RT Corporation <support@rt-net.jp>
+ *    Copyright(C) 2024 RT Corporation <support@rt-net.jp>
  *    Copyright(C) 2020 M.Hirai
  *      All rights reserved.
  *      

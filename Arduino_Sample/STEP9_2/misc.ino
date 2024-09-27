@@ -1,7 +1,7 @@
 /*
  *    Arduino_Sample/STEP9_2/misc.ino
  *    
- *    Copyright(C) 2020 RT Corporation <support@rt-net.jp>
+ *    Copyright(C) 2024 RT Corporation <support@rt-net.jp>
  *      All rights reserved.
  *      
  *    License: Apache License, Version 2.0

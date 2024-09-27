@@ -1,7 +1,7 @@
 /*
  *    STM32CubeIDE_file/BMX055.c
  *    
- *    Copyright(C) 2020 RT Corporation <support@rt-net.jp>
+ *    Copyright(C) 2024 RT Corporation <support@rt-net.jp>
  *      All rights reserved.
  *      
  *    License: Apache License, Version 2.0
